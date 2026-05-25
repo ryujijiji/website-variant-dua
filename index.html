@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kairos Knights — Klub Basket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/jpeg" href="https://aetherhln.github.io/Kairos-Knight/logo.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #ffffff;
+      --deep: #f5f0ff;
+      --card: #f0eaff;
+      --elevated: #e8deff;
+      --border: rgba(91,33,182,0.15);
+      --border-bright: rgba(91,33,182,0.55);
+      --orange: #6d28d9;
+      --orange-dim: rgba(109,40,217,0.1);
+      --orange-glow: rgba(109,40,217,0.2);
+      --gold: #b8860b;
+      --gold-dim: rgba(184,134,11,0.12);
+      --white: #ffffff;
+      --text: #2d1b69;
+      --muted: #6d4c99;
+      --muted2: #5b21b6;
+      --nav-h: 68px;
+      --r: 4px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Syne', sans-serif;
+      background: #ffffff;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+
+
+    /* ── NAV ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      width: 38px; height: 38px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 1px solid var(--border-bright);
+    }
+
+    .logo-text {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+
+    .logo-text span { color: #b8860b; }
+
+    nav ul {
+      list-style: none;
+      margin: 0; padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    nav a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    .nav-join {
+      background: #5b21b6;
+      color: #ffffff !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 2px;
+      font-weight: 700 !important;
+    }
+
+    .nav-join:hover { background: #b8860b; color: #ffffff !important; }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      font-size: 1rem;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      nav {
+        position: fixed;
+        top: var(--nav-h); left: 0; right: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--border);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      nav.open { max-height: 360px; }
+      nav ul { flex-direction: column; padding: 1.5rem 2rem; gap: 1.25rem; align-items: flex-start; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      padding-top: var(--nav-h);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 3rem 5rem 2.5rem;
+      position: relative;
+      z-index: 2;
+      background: #ffffff;
+    }
+
+    @media (max-width: 600px) {
+      .hero-left {
+        padding: 3rem 1.25rem 2rem;
+        background: #ffffff;
+      }
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: #7c3aed;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px; height: 1px;
+      background: #7c3aed;
+    }
+
+    .hero-h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(4.5rem, 12vw, 9rem);
+      line-height: 0.9;
+      margin: 0 0 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-h1 .line1 { display: block; color: #5b21b6; font-weight: 900; text-shadow: none; }
+    .hero-h1 .line2 {
+      display: block;
+      color: #5b21b6;
+      font-weight: 900;
+      -webkit-text-stroke: 0;
+      filter: none;
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #4b3a6e;
+      max-width: 38ch;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero-tagline {
+        font-size: 0.9rem;
+        max-width: 100%;
+        margin-bottom: 1.75rem;
+      }
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+      .hero-actions {
+        flex-direction: column;
+      }
+      .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 1rem 1.5rem;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.75rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #000000;
+      font-weight: 800;
+    }
+    .btn-primary:hover { background: #ffffff; color: #000000; text-decoration: none; }
+
+    .btn-outline {
+      background: transparent;
+      color: #5b21b6;
+      border: 1px solid rgba(91,33,182,0.4);
+    }
+    .btn-outline:hover { border-color: #5b21b6; color: #5b21b6; text-decoration: none; }
+
+    .hero-right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+      .hero-right { height: 50vw; min-height: 280px; }
+    }
+
+    .hero-court {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-court svg {
+      width: 90%;
+      max-width: 500px;
+      opacity: 0.65;
+      animation: courtPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes courtPulse {
+      0%, 100% { opacity: 0.65; }
+      50% { opacity: 0.85; }
+    }
+
+    .hero-number {
+      position: absolute;
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(12rem, 30vw, 22rem);
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(155,77,255,0.22);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+
+
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(91,33,182,0.2);
+      padding-top: 2rem;
+    }
+
+    .stat {
+      flex: 1;
+      padding-right: 2rem;
+      border-right: 1px solid rgba(91,33,182,0.2);
+      margin-right: 2rem;
+    }
+
+    .stat:last-child { border-right: none; margin-right: 0; }
+
+    .stat-num {
+      font-family: 'Anton', sans-serif;
+      font-size: 2.5rem;
+      color: #5b21b6;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #7c6a99;
+      margin-top: 0.25rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero-stats {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        gap: 0;
+      }
+      .stat {
+        padding-right: 1rem;
+        margin-right: 1rem;
+      }
+      .stat-num {
+        font-size: 1.8rem;
+      }
+      .stat-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.08em;
+      }
+    }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--deep);
+      padding: 0.6rem 0;
+    }
+
+    .ticker-inner {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      animation: tickerScroll 22s linear infinite;
+    }
+
+    .ticker-item {
+      font-family: 'Anton', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 2.5rem;
+    }
+
+    .ticker-item .dot {
+      color: var(--orange);
+      margin-right: 2.5rem;
+    }
+
+    @keyframes tickerScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── SECTIONS ── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    @media (max-width: 600px) {
+      main { padding: 0 1.25rem 4rem; }
+      section { padding: 4rem 0; }
+    }
+
+    section {
+      padding: 6rem 0;
+      scroll-margin-top: calc(var(--nav-h) + 1rem);
+    }
+
+    .section-header {
+      margin-bottom: 3rem;
+    }
+
+    .section-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-tag::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 40px;
+      background: var(--orange);
+    }
+
+    h2 {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      margin: 0;
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #2d1b69;
+    }
+
+    /* ── ABOUT ── */
+    #tentang {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      #tentang { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-court-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-court-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(255,107,0,0.08) 0%, transparent 70%);
+    }
+
+    .about-court-box svg { width: 75%; opacity: 0.5; }
+
+    .about-tag-float {
+      position: absolute;
+      bottom: -1rem; right: -1rem;
+      background: var(--orange);
+      padding: 1rem 1.5rem;
+      color: var(--black);
+    }
+
+    .about-tag-float .big { font-family: 'Anton', sans-serif; font-size: 2rem; display: block; line-height: 1; }
+    .about-tag-float .small { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; }
+
+    .about-text p {
+      color: #4b3a6e;
+      line-height: 1.8;
+      margin: 0 0 1rem;
+      font-size: 1rem;
+    }
+
+    .about-text strong { color: #2d1b69; }
+
+    /* ── VALUES ── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      .values-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .visi-misi-grid { grid-template-columns: 1fr !important; }
+    }
+
+    @media (max-width: 640px) {
+      [style*="grid-template-columns:repeat(4"] { grid-template-columns: repeat(2,1fr) !important; }
+      [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(1,1fr) !important; }
+    }
+
+    .value-item {
+      background: var(--black);
+      padding: 2.5rem 2rem;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .value-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.4s ease;
+    }
+
+    .value-item:hover { background: var(--card); }
+    .value-item:hover::after { width: 100%; }
+
+    .value-num {
+      font-family: 'Anton', sans-serif;
+      font-size: 4rem;
+      color: rgba(255,107,0,0.08);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .value-icon { font-size: 1.75rem; margin-bottom: 1rem; display: block; }
+
+    .value-item h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .value-item p {
+      font-size: 0.875rem;
+      color: var(--muted2);
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    /* ── SCHEDULE ── */
+    .schedule-grid {
+      display: grid;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .schedule-row {
+      display: grid;
+      grid-template-columns: 110px 1fr auto;
+      gap: 0;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    .schedule-row:last-child { border-bottom: none; }
+    .schedule-row:hover { background: var(--card); }
+
+    .sched-day {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.4rem;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .sched-info strong {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .sched-info span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .sched-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(240,192,96,0.35);
+      padding: 0.3rem 0.75rem;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 600px) {
+      .schedule-row {
+        grid-template-columns: 70px 1fr auto;
+        padding: 1rem;
+        gap: 0.5rem;
+      }
+      .sched-day { font-size: 1rem; }
+      .sched-info strong { font-size: 0.8rem; }
+      .sched-badge { font-size: 0.58rem; padding: 0.25rem 0.5rem; }
+    }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 640px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .team-card {
+      background: var(--black);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    .team-card:hover { background: var(--card); }
+
+    .team-avatar {
+      width: 72px; height: 72px;
+      margin: 0 auto 1.25rem;
+      border: 1px solid var(--border-bright);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Anton', sans-serif;
+      font-size: 1.75rem;
+      color: var(--orange);
+      position: relative;
+    }
+
+    .team-avatar::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      background: var(--orange-dim);
+    }
+
+    .team-avatar span { position: relative; z-index: 1; }
+
+    .team-card h4 {
+      margin: 0 0 0.35rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #ffffff;
+    }
+
+    .team-card p {
+      margin: 0;
+      font-size: 0.78rem;
+      color: var(--muted2);
+    }
+
+    /* ── BRANCHES ── */
+    .branch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 3rem;
+    }
+
+    .branch-card {
+      background: var(--black);
+      padding: 2rem 1.75rem;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .branch-card:hover { background: var(--card); }
+
+    .branch-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 0;
+      background: var(--orange);
+      transition: height 0.35s ease;
+    }
+
+    .branch-card:hover::before { height: 100%; }
+
+    .branch-name {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .branch-location {
+      font-size: 0.82rem;
+      color: var(--muted2);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .branch-location::before { content: '📍'; font-size: 0.75rem; }
+
+    .branch-contact a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--orange);
+      text-decoration: none;
+    }
+
+    .branch-contact a:hover { text-decoration: underline; }
+
+    /* ── GALLERY CAROUSEL ── */
+    .gallery-wrap {
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .carousel-container {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .carousel-slide {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeSlide 0.5s ease;
+    }
+
+    .carousel-slide.active {
+      display: flex;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .carousel-img-wrap {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .carousel-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel-placeholder {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .carousel-info {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .carousel-category {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.35rem;
+    }
+
+    .carousel-desc {
+      font-size: 0.85rem;
+      color: var(--muted2);
+    }
+
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.75rem;
+    }
+
+    .carousel-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+      font-family: 'Anton', sans-serif;
+    }
+
+    .carousel-btn:hover {
+      background: var(--orange);
+      color: var(--black);
+      border-color: var(--orange);
+    }
+
+    .carousel-dots {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .carousel-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .carousel-dot.active {
+      background: var(--orange);
+      width: 20px;
+      border-radius: 3px;
+    }
+
+    .carousel-counter {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.75rem;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, #1a0a35 0%, #2a1060 50%, #1a0a35 100%);
+      border: 1px solid rgba(155,77,255,0.35);
+      padding: 5rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 600px) {
+      .cta-box { padding: 3rem 1.25rem; }
+      .cta-actions { flex-direction: column; }
+      .cta-actions .btn { width: 100%; justify-content: center; }
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center top, rgba(255,107,0,0.12), transparent 65%);
+    }
+
+    .cta-big {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+      position: relative;
+      color: #ffffff;
+    }
+
+    .cta-big span { color: var(--gold); }
+
+    .cta-sub {
+      color: var(--muted2);
+      max-width: 44ch;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      position: relative;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-left {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    .footer-left strong { color: var(--text); }
+
+    .footer-socials {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .footer-socials a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .footer-socials a:hover { color: var(--orange); }
+
+    /* ── ENTRANCE ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); }
+
+    /* ── IG LINK ── */
+    .ig-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted2);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+    .ig-link:hover { color: var(--orange); text-decoration: none; }
+    .ig-link::before { content: '◆'; color: var(--orange); font-size: 0.5rem; }
+  </style>
+</head>
+<body>
+
+
+
+<!-- NAV -->
+<header>
+  <a href="#" class="logo-wrap">
+    <img src="https://aetherhln.github.io/Kairos-Knight/logo.jpg" alt="KK" class="logo-img" />
+    <span class="logo-text">Kairos <span>Knights</span></span>
+  </a>
+  <button type="button" class="menu-toggle" id="menuToggle">☰</button>
+  <nav id="mainNav">
+    <ul>
+      <li><a href="#tentang">Tentang</a></li>
+      <li><a href="#nilai">Nilai</a></li>
+      <li><a href="#jadwal">Jadwal</a></li>
+      <li><a href="#tim">Tim</a></li>
+      <li><a href="#cabang">Cabang</a></li>
+      <li><a href="#galeri">Galeri</a></li>
+      <li><a href="#bergabung" class="nav-join">Bergabung</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left fade-up visible">
+    <div class="hero-eyebrow">Klub Basket Terdaftar di Perbasi Jakarta Barat</div>
+    <h1 class="hero-h1">
+      <span class="line1">Kairos</span>
+      <span class="line2">Knights</span>
+    </h1>
+    <p class="hero-tagline">
+      Waktu yang tepat untuk berlatih, bertanding, dan bertumbuh bersama. Kami membuka pintu untuk pemain baru yang ingin serius di lapangan maupun sekadar menikmati permainan.
+    </p>
+    <div class="hero-actions">
+      <a href="#bergabung" class="btn btn-primary">Daftar Minat →</a>
+      <a href="#jadwal" class="btn btn-outline">Lihat Jadwal</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">6–18</div>
+        <div class="stat-label">Usia Pemain</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Cabang</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7×</div>
+        <div class="stat-label">Sesi/Minggu</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-court">
+      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgba(180,100,255,0.9)" stroke-width="1.5">
+        <rect x="15" y="15" width="270" height="190" rx="3"/>
+        <line x1="150" y1="15" x2="150" y2="205"/>
+        <circle cx="150" cy="110" r="35"/>
+        <path d="M 15 70 Q 80 110 15 150"/>
+        <path d="M 285 70 Q 220 110 285 150"/>
+        <rect x="15" y="85" width="60" height="50"/>
+        <rect x="225" y="85" width="60" height="50"/>
+        <circle cx="150" cy="110" r="4" fill="rgba(200,130,255,1)"/>
+        <line x1="100" y1="15" x2="100" y2="35"/>
+        <line x1="200" y1="15" x2="200" y2="35"/>
+        <line x1="100" y1="185" x2="100" y2="205"/>
+        <line x1="200" y1="185" x2="200" y2="205"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="dot">●</span>Kairos Knights</span>
+    <span class="ticker-item"><span class="dot">●</span>Klub Basket Jakarta</span>
+    <span class="ticker-item"><span class="dot">●</span>Latihan Reguler</span>
+    <span class="ticker-item"><span class="dot">●</span>Turnamen Antar Klub</span>
+    <span class="ticker-item"><span class="dot">●</span>Umur 6–18 Tahun</span>
+    <span class="ticker-item"><span class="dot">●</span>Jakarta</span>
+    <span class="ticker-item"><span class="dot">●</span>Kairos Knights</span>
+    <span class="ticker-item"><span class="dot">●</span>Klub Basket Jakarta</span>
+    <span class="ticker-item"><span class="dot">●</span>Latihan Reguler</span>
+    <span class="ticker-item"><span class="dot">●</span>Turnamen Antar Klub</span>
+    <span class="ticker-item"><span class="dot">●</span>Umur 6–18 Tahun</span>
+    <span class="ticker-item"><span class="dot">●</span>Jakarta</span>
+  </div>
+</div>
+
+<main>
+  <!-- ABOUT -->
+  <section id="tentang" style="padding-top:6rem;">
+    <div class="about-visual fade-up">
+      <div class="about-court-box" style="background:#5b21b6; padding:0; overflow:hidden;">
+        <div style="position:relative; width:100%; height:100%;">
+          <!-- Fallback SVG purple court always shown first, photo on top if loads -->
+          <div style="position:absolute;inset:0;background:#5b21b6;display:flex;align-items:center;justify-content:center;">
+            <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+              <rect width="400" height="280" fill="#5b21b6"/>
+              <rect x="20" y="20" width="360" height="240" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+              <line x1="200" y1="20" x2="200" y2="260" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+              <circle cx="200" cy="140" r="55" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+              <circle cx="200" cy="140" r="20" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+              <rect x="20" y="105" width="85" height="70" fill="#f0a800"/>
+              <rect x="295" y="105" width="85" height="70" fill="#f0a800"/>
+              <path d="M20 180 Q 80 140 20 105" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+              <path d="M380 180 Q 320 140 380 105" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <!-- Real photo loads on top of SVG if available -->
+          <img src="https://aetherhln.github.io/Kairos-Knight/court.jpg" alt="Lapangan Kairos Knights" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';" />
+          <!-- Kairos Knights logo always centered on top of everything -->
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;border-radius:50%;overflow:hidden;background:white;box-shadow:0 0 0 4px rgba(255,255,255,0.95), 0 4px 20px rgba(0,0,0,0.35);z-index:10;">
+            <img src="https://aetherhln.github.io/Kairos-Knight/logo.jpg" alt="Kairos Knights Logo" style="width:100%;height:100%;object-fit:cover;" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-text fade-up delay-1" style="padding-top:6rem;">
+      <div class="section-header">
+        <div class="section-tag">Tentang Kami</div>
+        <h2>Lebih dari<br/>Sekadar Main Bola</h2>
+      </div>
+      <p>
+        <strong>Kairos Knights</strong> adalah klub basket terdaftar di Perbasi Jakarta Barat yang fokus pada pengembangan skill, teamwork, dan sportivitas. Dari latihan fundamental hingga scrimmage, setiap anggota didorong untuk memberikan yang terbaik—di dalam dan di luar lapangan.
+      </p>
+      <p>
+        Cocok untuk pelajar umur <strong>6–18 tahun</strong> yang ingin rutin bergerak, bertemu teman baru, dan ikut event antar klub atau turnamen lokal.
+      </p>
+      <a href="https://www.instagram.com/kairosknights?igsh=MXdldmpjNnA3em96bQ==" class="ig-link" target="_blank" rel="noopener">@kairosknights</a>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section id="nilai">
+    <div class="section-header fade-up" style="text-align:center;">
+      <div class="section-tag" style="justify-content:center;">Yang Kami Junjung</div>
+      <h2>Nilai Klub</h2>
+    </div>
+
+    <!-- VISI & MISI -->
+    <div class="visi-misi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:3rem;" class="fade-up">
+      <div style="background:var(--card);border:1px solid var(--border);padding:2rem;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.75rem;">Visi</div>
+        <p style="color:var(--muted2);line-height:1.8;margin:0;font-size:0.95rem;">Menjadi klub basket yang membentuk pemain muda berkarakter positif, berprestasi, dan menjunjung sportivitas.</p>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);padding:2rem;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.75rem;">Misi</div>
+        <div style="color:var(--muted2);line-height:2;font-size:0.9rem;display:flex;flex-direction:column;gap:0.3rem;">
+          <p style="margin:0;padding-left:1rem;border-left:2px solid rgba(155,77,255,0.35);">Membangun Budaya dan Karakter Positif</p>
+          <p style="margin:0;padding-left:1rem;border-left:2px solid rgba(155,77,255,0.35);">Mengembangkan Potensi Pemain Muda</p>
+          <p style="margin:0;padding-left:1rem;border-left:2px solid rgba(155,77,255,0.35);">Mendorong Partisipasi dalam Kompetisi</p>
+          <p style="margin:0;padding-left:1rem;border-left:2px solid rgba(155,77,255,0.35);">Menanamkan Gaya Hidup Sehat</p>
+          <p style="margin:0;padding-left:1rem;border-left:2px solid rgba(155,77,255,0.35);">Menyiapkan Pemain ke Jalur Pro</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- KNIGHTS Acrostic -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);">
+      <div class="value-item fade-up">
+        <div class="value-num" style="color:var(--gold);opacity:0.3;font-size:3rem;">K</div>
+        <span class="value-icon">❤️</span>
+        <h3>Kasih</h3>
+        <p>Membangun hubungan yang saling menghargai dan mendukung di dalam tim.</p>
+      </div>
+      <div class="value-item fade-up delay-1">
+        <div class="value-num" style="color:var(--gold);opacity:0.3;font-size:3rem;">N</div>
+        <span class="value-icon">✨</span>
+        <h3>Niat Positif</h3>
+        <p>Setiap langkah di lapangan dilandasi niat yang baik dan tulus.</p>
+      </div>
+      <div class="value-item fade-up delay-2">
+        <div class="value-num" style="color:var(--gold);opacity:0.3;font-size:3rem;">I</div>
+        <span class="value-icon">🏆</span>
+        <h3>Integritas</h3>
+        <p>Bermain jujur dan menjaga komitmen baik saat menang maupun kalah.</p>
+      </div>
+      <div class="value-item fade-up delay-3">
+        <div class="value-num" style="color:var(--gold);opacity:0.3;font-size:3rem;">G</div>
+        <span class="value-icon">💪</span>
+        <h3>Gigih</h3>
+        <p>Pantang menyerah dalam latihan dan terus berkembang setiap hari.</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-top:none;">
+      <div class="value-item fade-up">
+        <div class="value-num" style="color:var(--gold);opacity:0.3;font-size:3rem;">H</div>
+        <span class="value-icon">🙏</span>
+        <h3>Hormat</h3>
+        <p>Menghormati pelatih, rekan tim, lawan, dan seluruh komunitas basket.</p>
+      </div>
+      <div class="value-item fade-up delay-1">
+        <div class="value-num" style="color:var(--gold);opacity:0.3;font-size:3rem;">T</div>
+        <span class="value-icon">⚡</span>
+        <h3>Tanggung Jawab</h3>
+        <p>Bertanggung jawab atas peran masing-masing demi kemajuan bersama.</p>
+      </div>
+      <div class="value-item fade-up delay-2">
+        <div class="value-num" style="color:var(--gold);opacity:0.3;font-size:3rem;">S</div>
+        <span class="value-icon">🤝</span>
+        <h3>Sportif</h3>
+        <p>Menjunjung tinggi fair play dan menghargai setiap hasil pertandingan dengan lapang dada.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section id="jadwal">
+    <div class="section-header fade-up" style="text-align:center;">
+      <div class="section-tag" style="justify-content:center;">Rutinitas</div>
+      <h2>Jadwal Latihan</h2>
+    </div>
+    <div class="schedule-grid fade-up">
+      <div class="schedule-row">
+        <span class="sched-day">Selasa</span>
+        <div class="sched-info"><strong>Kalam Kudus</strong><span>16.00 – 18.00</span></div>
+        <span class="sched-badge">Reguler</span>
+      </div>
+      <div class="schedule-row">
+        <span class="sched-day">Selasa</span>
+        <div class="sched-info"><strong>Taman Kencana (KU 8,10,12) & Pelita 2</strong><span>19.00 – 21.00</span></div>
+        <span class="sched-badge">Reguler</span>
+      </div>
+      <div class="schedule-row">
+        <span class="sched-day">Rabu</span>
+        <div class="sched-info"><strong>SDH & Taman Kencana (KU 14,16)</strong><span>19.00 – 21.00</span></div>
+        <span class="sched-badge">Reguler</span>
+      </div>
+      <div class="schedule-row">
+        <span class="sched-day">Kamis</span>
+        <div class="sched-info"><strong>Kalam Kudus & Katri PIK</strong><span>16.00 – 18.00</span></div>
+        <span class="sched-badge">Reguler</span>
+      </div>
+      <div class="schedule-row">
+        <span class="sched-day">Jumat</span>
+        <div class="sched-info"><strong>Taman Kencana (KU 14,16)</strong><span>18.00 – 20.00</span></div>
+        <span class="sched-badge">Reguler</span>
+      </div>
+      <div class="schedule-row">
+        <span class="sched-day">Jumat</span>
+        <div class="sched-info"><strong>Taman Kencana (KU 8,10,12) & Pelita 2</strong><span>19.00 – 21.00</span></div>
+        <span class="sched-badge">Reguler</span>
+      </div>
+      <div class="schedule-row">
+        <span class="sched-day">Sabtu</span>
+        <div class="sched-info"><strong>Katri PIK & Casa Jardin (KU 8,10)</strong><span>08.00 – 10.00</span></div>
+        <span class="sched-badge">Reguler</span>
+      </div>
+      <div class="schedule-row">
+        <span class="sched-day">Sabtu</span>
+        <div class="sched-info"><strong>Duri Kepa (KU 8,10)</strong><span>09.00 – 11.00</span></div>
+        <span class="sched-badge">Reguler</span>
+      </div>
+      <div class="schedule-row">
+        <span class="sched-day">Sabtu</span>
+        <div class="sched-info"><strong>Duri Kepa (KU 10,12) & Casa Jardin (KU 10,12)</strong><span>10.00 – 12.00</span></div>
+        <span class="sched-badge">Reguler</span>
+      </div>
+      <div class="schedule-row">
+        <span class="sched-day">Sabtu</span>
+        <div class="sched-info"><strong>SDH (KU 8,10)</strong><span>11.00 – 13.00</span></div>
+        <span class="sched-badge">Reguler</span>
+      </div>
+      <div class="schedule-row">
+        <span class="sched-day">Sabtu</span>
+        <div class="sched-info"><strong>SDH (KU 12,14,16)</strong><span>12.00 – 14.00</span></div>
+        <span class="sched-badge">Reguler</span>
+      </div>
+      <div class="schedule-row">
+        <span class="sched-day">Sabtu</span>
+        <div class="sched-info"><strong>Sunrise Garden (KU MIX)</strong><span>16.00 – 18.00</span></div>
+        <span class="sched-badge">Reguler</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="tim">
+    <div class="section-header fade-up" style="text-align:center;">
+      <div class="section-tag" style="justify-content:center;">Struktur</div>
+      <h2>Tim Coach</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card fade-up">
+        <div class="team-avatar"><span>P</span></div>
+        <h4>Pelatih Kepala</h4>
+        <p>Strategi & pengembangan pemain</p>
+      </div>
+      <div class="team-card fade-up delay-1">
+        <div class="team-avatar"><span>C</span></div>
+        <h4>Kapten</h4>
+        <p>Koordinasi di lapangan</p>
+      </div>
+      <div class="team-card fade-up delay-2">
+        <div class="team-avatar"><span>M</span></div>
+        <h4>Manajer</h4>
+        <p>Jadwal, jersey, administrasi</p>
+      </div>
+      <div class="team-card fade-up delay-3">
+        <div class="team-avatar"><span>+</span></div>
+        <h4>Anggota</h4>
+        <p>Kamu berikutnya</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANCHES -->
+  <section id="cabang">
+    <div class="section-header fade-up" style="text-align:center;">
+      <div class="section-tag" style="justify-content:center;">Cabang</div>
+      <h2>Lokasi / Cabang<br/>Kairos Knights</h2>
+    </div>
+    <div class="branch-grid">
+      <div class="branch-card fade-up">
+        <div class="branch-name">Kairos Knights Jakarta</div>
+        <div class="branch-location">Jakarta Selatan, GOR Bulungan</div>
+        <div class="branch-contact"><a href="https://wa.me/6282200000011" target="_blank">WA: 0822-0000-011</a></div>
+      </div>
+      <div class="branch-card fade-up delay-1">
+        <div class="branch-name">Kairos Knights Depok</div>
+        <div class="branch-location">Depok, GOR Cipayung</div>
+        <div class="branch-contact"><a href="https://wa.me/6282212341234" target="_blank">WA: 0822-1234-1234</a></div>
+      </div>
+      <div class="branch-card fade-up delay-2">
+        <div class="branch-name">Kairos Knights Bandung</div>
+        <div class="branch-location">Bandung, Cihampelas</div>
+        <div class="branch-contact"><a href="https://wa.me/6282234567890" target="_blank">WA: 0822-3456-7890</a></div>
+      </div>
+      <div class="branch-card fade-up delay-3">
+        <div class="branch-name">Cabang Lain</div>
+        <div class="branch-location">Tulis cabangmu sendiri di sini!</div>
+        <div class="branch-contact" style="color:var(--muted);font-size:0.78rem;">Hubungi admin club untuk kolaborasi cabang baru.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="galeri">
+    <div class="section-header fade-up" style="text-align:center;">
+      <div class="section-tag" style="justify-content:center;">Momen</div>
+      <h2>Galeri</h2>
+    </div>
+    <div class="gallery-wrap fade-up">
+      <div class="carousel-container">
+        <div id="carouselSlides"></div>
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="prevBtn">&#8592;</button>
+          <div class="carousel-dots" id="carouselDots"></div>
+          <button class="carousel-btn" id="nextBtn">&#8594;</button>
+        </div>
+        <div class="carousel-counter" id="carouselCounter"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="bergabung" class="cta-section">
+    <div class="cta-box fade-up">
+      <div class="cta-big">
+        Mau Ikut<br/><span>Latihan?</span>
+      </div>
+      <p class="cta-sub">
+        Hubungi kami lewat WhatsApp atau Instagram—sebutkan posisi favorit dan pengalaman bermainmu (boleh pemula).
+      </p>
+      <div class="cta-actions">
+        <a href="https://wa.me/6285717596986" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Chat WhatsApp →</a>
+        <a href="https://www.instagram.com/kairosknights?igsh=MXdldmpjNnA3em96bQ==" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Instagram Club</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-left">
+    <strong>Kairos Knights</strong> · Klub Basket · <span id="year"></span>
+  </div>
+  <div class="footer-socials">
+    <a href="https://wa.me/6285717596986" target="_blank">WhatsApp</a>
+    <a href="https://www.instagram.com/kairosknights?igsh=MXdldmpjNnA3em96bQ==" target="_blank">Instagram</a>
+  </div>
+</footer>
+
+<script>
+(function() {
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile nav
+  var toggle = document.getElementById('menuToggle');
+  var nav = document.getElementById('mainNav');
+  if (toggle && nav) {
+    toggle.addEventListener('click', function() { nav.classList.toggle('open'); });
+    nav.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { nav.classList.remove('open'); });
+    });
+  }
+
+  // Scroll fade-in
+  var faders = document.querySelectorAll('.fade-up');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  faders.forEach(function(el) { observer.observe(el); });
+
+  // Gallery Carousel
+  var slides = [
+    { category: 'Latihan Tim', img: '', desc: 'Sesi latihan rutin bersama tim' },
+    { category: 'Turnamen', img: '', desc: 'Bertanding di kompetisi antar club' },
+    { category: 'After Game', img: '', desc: 'Momen kebersamaan setelah pertandingan' },
+    { category: 'Community', img: '', desc: 'Komunitas Kairos Knights yang solid' }
+  ];
+  // To add real photos, change img: '' to img: 'namafile.jpg'
+  // Example: { category: 'Latihan Tim', img: 'latihan1.jpg', desc: 'Deskripsi foto' }
+
+  var current = 0;
+  var autoTimer;
+
+  var slidesEl = document.getElementById('carouselSlides');
+  var dotsEl = document.getElementById('carouselDots');
+  var counterEl = document.getElementById('carouselCounter');
+
+  function renderSlides() {
+    slidesEl.innerHTML = slides.map(function(s, i) {
+      return '<div class="carousel-slide' + (i === 0 ? ' active' : '') + '">' +
+        '<div class="carousel-img-wrap">' +
+          (s.img ? '<img src="' + s.img + '" alt="' + s.category + '">' : '<div class="carousel-placeholder">📸<br>Belum ada foto<br>' + s.category + '</div>') +
+        '</div>' +
+        '<div class="carousel-info">' +
+          '<div class="carousel-category">' + s.category + '</div>' +
+          '<div class="carousel-desc">' + s.desc + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    dotsEl.innerHTML = slides.map(function(_, i) {
+      return '<div class="carousel-dot' + (i === 0 ? ' active' : '') + '" data-i="' + i + '"></div>';
+    }).join('');
+
+    dotsEl.querySelectorAll('.carousel-dot').forEach(function(dot) {
+      dot.addEventListener('click', function() { goTo(parseInt(this.getAttribute('data-i'))); });
+    });
+
+    updateCounter();
+  }
+
+  function goTo(n) {
+    var allSlides = slidesEl.querySelectorAll('.carousel-slide');
+    var allDots = dotsEl.querySelectorAll('.carousel-dot');
+    allSlides[current].classList.remove('active');
+    allDots[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    allSlides[current].classList.add('active');
+    allDots[current].classList.add('active');
+    updateCounter();
+    resetTimer();
+  }
+
+  function updateCounter() {
+    counterEl.textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  function resetTimer() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function() { goTo(current + 1); }, 3500);
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', function() { goTo(current - 1); });
+  document.getElementById('nextBtn').addEventListener('click', function() { goTo(current + 1); });
+
+  renderSlides();
+  resetTimer();
+})();
+</script>
+</body>
+</html>
